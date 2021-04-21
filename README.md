@@ -55,6 +55,18 @@ Example result:
  }}
  ```
 
+
+Benchmarks:
+```
+Benchee.run(
+  %{
+    "info" => fn  -> Zcashex.getinfo end
+  },
+    time: 10,
+  memory_time: 2,
+  formatters: [{Benchee.Formatters.Console, extended_statistics: true}]
+)
+```
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/zcashex](https://hexdocs.pm/zcashex).

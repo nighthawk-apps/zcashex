@@ -15,7 +15,8 @@ defmodule Zcashex.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.8"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:benchee, "~> 1.0", only: :dev}
     ]
   end
 end
