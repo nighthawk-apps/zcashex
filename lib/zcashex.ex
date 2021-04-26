@@ -35,6 +35,9 @@ defmodule Zcashex do
                    getmininginfo
                    getnetworkinfo
                    getpeerinfo
+                   getbestblockhash
+                   getblockcount
+                   getdifficulty
                    )a
   Enum.each(@info_methods, fn method ->
     @doc """
@@ -44,4 +47,8 @@ defmodule Zcashex do
       GenServer.call(__MODULE__, {:call_endpoint, unquote(method)})
     end
   end)
+
+  def getblock(hash, verbosity) when is_integer(verbosity) and verbosity in 0..2 do
+    GenServer.call(__MODULE__, {:call_endpoint, "getblock", [hash, verbosity]})
+  end
 end
