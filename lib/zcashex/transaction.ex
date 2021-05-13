@@ -81,6 +81,7 @@ defmodule Zcashex.VOutTX do
     field(:spentHeight, :integer)
     field(:spentIndex, :integer)
     field(:spentTxId, :string)
+    embeds_one(:scriptPubKey, Zcashex.ScriptPubKey)
   end
 
   def changeset(struct, data) do
@@ -93,6 +94,32 @@ defmodule Zcashex.VOutTX do
       :spentHeight,
       :spentIndex,
       :spentTxId
+    ])
+    |> cast_embed(:scriptPubKey)
+  end
+end
+
+defmodule Zcashex.ScriptPubKey do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  @primary_key false
+  embedded_schema do
+    field(:asm, :string)
+    field(:hex, :string)
+    field(:reqSigs, :integer)
+    field(:type, :string)
+    field(:addresses, {:array, :string})
+  end
+
+  def changeset(struct, data) do
+    struct
+    |> cast(data, [
+      :asm,
+      :hex,
+      :reqSigs,
+      :type,
+      :addresses
     ])
   end
 end
