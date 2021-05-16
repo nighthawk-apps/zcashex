@@ -24,7 +24,7 @@ defmodule Zcashex.Client do
         }),
         [{"Content-Type", "text/plain"}],
         hackney: [basic_auth: {state.username, state.password}],
-        recv_timeout: 5000
+        recv_timeout: 120_000
       )
 
     case response do

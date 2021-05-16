@@ -49,7 +49,7 @@ defmodule Zcashex do
   end)
 
   def getblock(hash, verbosity) when is_integer(verbosity) and verbosity in 0..2 do
-    GenServer.call(__MODULE__, {:call_endpoint, "getblock", [hash, verbosity]})
+    GenServer.call(__MODULE__, {:call_endpoint, "getblock", [hash, verbosity]}, 120_000)
   end
 
   def getblocksubsidy() do
