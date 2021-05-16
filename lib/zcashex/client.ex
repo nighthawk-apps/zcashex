@@ -23,7 +23,8 @@ defmodule Zcashex.Client do
           "params" => params
         }),
         [{"Content-Type", "text/plain"}],
-        hackney: [basic_auth: {state.username, state.password}]
+        hackney: [basic_auth: {state.username, state.password}],
+        recv_timeout: 5000
       )
 
     case response do
