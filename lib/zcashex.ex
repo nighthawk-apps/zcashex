@@ -59,4 +59,11 @@ defmodule Zcashex do
   def getblocksubsidy(height) when is_integer(height) do
     GenServer.call(__MODULE__, {:call_endpoint, "getblocksubsidy", [height]})
   end
+
+  @doc """
+  https://zcash-rpc.github.io/getnetworksolps.html
+  """
+  def getnetworksolps(blocks \\ 120, height \\ -1) do
+    GenServer.call(__MODULE__, {:call_endpoint, "getnetworksolps", [blocks, height]})
+  end
 end
