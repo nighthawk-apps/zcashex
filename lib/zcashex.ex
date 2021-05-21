@@ -66,4 +66,14 @@ defmodule Zcashex do
   def getnetworksolps(blocks \\ 120, height \\ -1) do
     GenServer.call(__MODULE__, {:call_endpoint, "getnetworksolps", [blocks, height]})
   end
+
+  def getblockhashes(high, low, no_orphans \\ true, logical_times \\ true)
+      when is_integer(high) and is_integer(low) and is_boolean(no_orphans) and
+             is_boolean(logical_times) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "getblockhashes",
+       [high, low, %{"noOrphans" => no_orphans, "logicalTimes" => logical_times}]}
+    )
+  end
 end
