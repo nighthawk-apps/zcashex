@@ -76,4 +76,16 @@ defmodule Zcashex do
        [high, low, %{"noOrphans" => no_orphans, "logicalTimes" => logical_times}]}
     )
   end
+
+  @doc """
+  https://zcash-rpc.github.io/getrawtransaction.html
+  """
+  def getrawtransaction(transaction_id, verbosity \\ 1)
+      when is_integer(verbosity) and verbosity >= 0 do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "getrawtransaction", [transaction_id, verbosity]},
+      120_000
+    )
+  end
 end
