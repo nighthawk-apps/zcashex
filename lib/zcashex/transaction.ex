@@ -16,6 +16,9 @@ defmodule Zcashex.Transaction do
     field(:versiongroupid, :string)
     embeds_many(:vin, Zcashex.VInTX)
     embeds_many(:vout, Zcashex.VOutTX)
+    embeds_many(:vjoinsplit, Zcashex.VJoinSplitTX)
+    field(:VShieldedSpend, {:array, :string})
+    field(:VShieldedOutput, {:array, :string})
   end
 
   def changeset(struct, data) do
@@ -30,10 +33,13 @@ defmodule Zcashex.Transaction do
       :valueBalance,
       :valueBalanceZat,
       :version,
-      :versiongroupid
+      :versiongroupid,
+      :VShieldedSpend,
+      :VShieldedOutput
     ])
     |> cast_embed(:vin)
     |> cast_embed(:vout)
+    |> cast_embed(:vjoinsplit)
   end
 end
 
@@ -125,4 +131,40 @@ defmodule Zcashex.ScriptPubKey do
 end
 
 defmodule Zcashex.VJoinSplitTX do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  @primary_key false
+  embedded_schema do
+    field(:anchor, :string)
+    field(:ciphertexts, {:array, :string})
+    field(:commitments, {:array, :string})
+    field(:macs, {:array, :string})
+    field(:nullifiers, {:array, :string})
+    field(:onetimePubKey, :string)
+    field(:proof, :string)
+    field(:randomSeed, :string)
+    field(:vpub_new, :float)
+    field(:vpub_newZat, :integer)
+    field(:vpub_old, :float)
+    field(:vpub_oldZat, :integer)
+  end
+
+  def changeset(struct, data) do
+    struct
+    |> cast(data, [
+      :anchor,
+      :ciphertexts,
+      :commitments,
+      :macs,
+      :nullifiers,
+      :onetimePubKey,
+      :proof,
+      :randomSeed,
+      :vpub_new,
+      :vpub_newZat,
+      :vpub_old,
+      :vpub_oldZat
+    ])
+  end
 end
