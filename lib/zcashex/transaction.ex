@@ -41,6 +41,28 @@ defmodule Zcashex.Transaction do
     |> cast_embed(:vShieldedSpend)
     |> cast_embed(:vShieldedOutput)
   end
+
+  def from_map(data) when is_map(data) do
+    %__MODULE__{}
+    |> cast(data, [
+      :expiryheight,
+      :hex,
+      :locktime,
+      :overwintered,
+      :size,
+      :txid,
+      :valueBalance,
+      :valueBalanceZat,
+      :version,
+      :versiongroupid
+    ])
+    |> cast_embed(:vin)
+    |> cast_embed(:vout)
+    |> cast_embed(:vjoinsplit)
+    |> cast_embed(:vShieldedSpend)
+    |> cast_embed(:vShieldedOutput)
+    |> apply_changes
+  end
 end
 
 defmodule Zcashex.VInTX do
