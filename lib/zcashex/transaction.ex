@@ -4,11 +4,16 @@ defmodule Zcashex.Transaction do
 
   @primary_key false
   embedded_schema do
+    field(:blockhash, :string)
+    field(:blocktime, :integer)
+    field(:confirmations, :integer)
     field(:expiryheight, :integer)
+    field(:height, :integer)
     field(:hex, :string)
     field(:locktime, :integer)
     field(:overwintered, :boolean)
     field(:size, :integer)
+    field(:time, :integer)
     field(:txid, :string)
     field(:valueBalance, :float)
     field(:valueBalanceZat, :float)
@@ -24,11 +29,16 @@ defmodule Zcashex.Transaction do
   def changeset(struct, data) do
     struct
     |> cast(data, [
+      :blockhash,
+      :blocktime,
+      :confirmations,
       :expiryheight,
+      :height,
       :hex,
       :locktime,
       :overwintered,
       :size,
+      :time,
       :txid,
       :valueBalance,
       :valueBalanceZat,
@@ -45,11 +55,16 @@ defmodule Zcashex.Transaction do
   def from_map(data) when is_map(data) do
     %__MODULE__{}
     |> cast(data, [
+      :blockhash,
+      :blocktime,
+      :confirmations,
       :expiryheight,
+      :height,
       :hex,
       :locktime,
       :overwintered,
       :size,
+      :time,
       :txid,
       :valueBalance,
       :valueBalanceZat,
