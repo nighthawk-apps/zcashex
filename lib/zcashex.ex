@@ -88,4 +88,15 @@ defmodule Zcashex do
       120_000
     )
   end
+
+  @doc """
+  https://zcash-rpc.github.io/sendrawtransaction.html
+  """
+  def sendrawtransaction(hex) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "sendrawtransaction", [hex]},
+      120_000
+    )
+  end
 end
