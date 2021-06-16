@@ -100,9 +100,9 @@ defmodule Zcashex do
     )
   end
 
-  @(@doc """
+  @doc """
     https://github.com/zcash/zcash/blob/master/doc/payment-disclosure.md
-    """)
+    """
   def z_validatepaymentdisclosure(hex) do
     GenServer.call(
       __MODULE__,
