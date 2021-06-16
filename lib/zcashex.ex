@@ -99,4 +99,15 @@ defmodule Zcashex do
       120_000
     )
   end
+
+  @(@doc """
+    https://github.com/zcash/zcash/blob/master/doc/payment-disclosure.md
+    """)
+  def z_validatepaymentdisclosure(hex) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "z_validatepaymentdisclosure", [hex]},
+      120_000
+    )
+  end
 end
