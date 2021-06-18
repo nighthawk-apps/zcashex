@@ -101,12 +101,57 @@ defmodule Zcashex do
   end
 
   @doc """
-    https://github.com/zcash/zcash/blob/master/doc/payment-disclosure.md
-    """
+  https://github.com/zcash/zcash/blob/master/doc/payment-disclosure.md
+  """
   def z_validatepaymentdisclosure(hex) do
     GenServer.call(
       __MODULE__,
       {:call_endpoint, "z_validatepaymentdisclosure", [hex]},
+      120_000
+    )
+  end
+
+  @doc """
+  https://zcash-rpc.github.io/getaddressbalance.html
+  """
+  def getaddressbalance(taddr) when is_binary(taddr) do
+    payload = %{"addresses" => [taddr]}
+
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "getaddressbalance", [payload]},
+      120_000
+    )
+  end
+
+  @doc """
+  https://zcash-rpc.github.io/getaddressbalance.html
+  """
+  def getaddressbalance(taddr) when is_list(taddr) do
+    payload = %{"addresses" => taddr}
+
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "getaddressbalance", [payload]},
+      120_000
+    )
+  end
+
+  @doc """
+  https://zcash-rpc.github.io/getaddressdeltas.html
+  """
+  def getaddressdeltas(taddr, start_block \\ nil, end_block \\ nil, chaininfo \\ true) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "getaddressdeltas",
+       [
+         %{
+           "addresses" => [taddr],
+           "start" => start_block,
+           "end" => end_block,
+           "chainInfo" => chaininfo
+         }
+       ]},
       120_000
     )
   end
