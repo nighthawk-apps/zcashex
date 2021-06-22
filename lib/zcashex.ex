@@ -155,4 +155,22 @@ defmodule Zcashex do
       120_000
     )
   end
+
+  @doc """
+  https://zcash-rpc.github.io/getaddresstxids.html
+  """
+  def getaddresstxids(taddr, start_block \\ nil, end_block \\ nil) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "getaddresstxids",
+       [
+         %{
+           "addresses" => [taddr],
+           "start" => start_block,
+           "end" => end_block
+         }
+       ]},
+      120_000
+    )
+  end
 end
