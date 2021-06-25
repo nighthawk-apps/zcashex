@@ -173,4 +173,16 @@ defmodule Zcashex do
       120_000
     )
   end
+
+  @doc """
+  Note: this function can only be used on the regtest network
+  https://zcash-rpc.github.io/generate.html
+  """
+  def generate(count) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "generate", [count]},
+      120_000
+    )
+  end
 end
