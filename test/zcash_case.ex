@@ -9,7 +9,7 @@ defmodule ZcashexCase do
 
   setup_all do
 
-   host = System.get_env("hostname") || "localhost"
+   host = System.get_env("zcashd_hostname") || "localhost"
    port = System.get_env("rpc_port") || 18347
    username = System.get_env("rpc_username") || "zcashrpc"
    password = System.get_env("rpc_password") || "notsecure"
