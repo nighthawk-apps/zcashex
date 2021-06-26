@@ -1,0 +1,52 @@
+name: Zcashex CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    name: Build and test
+    runs-on: ubuntu-latest
+
+    services:
+      zcashd:
+        image: nighthawkapps/zcash
+        ports:
+          - 18347:18347
+        env:
+          ZCASHD_NETWORK: regtest
+          ZCASHD_LOGIPS: 1
+          ZCASHD_EXPERIMENTALFEATURES: 1
+          ZCASHD_GEN: 0
+          ZCASHD_RPCUSER: zcashrpc
+          ZCASHD_RPCPASSWORD: notsecure
+          ZCASHD_RPCPORT: 18347
+          ZCASHD_RPCBIND: 0.0.0.0
+          ZCASHD_ALLOWIP: 0.0.0.0/0
+          ZCASHD_TXINDEX: 1
+          ZCASHD_INSIGHTEXPLORER: 1
+          ZCASHD_PAYMENTDISCLOSURE: 1
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Elixir
+      uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
+      with:
+        elixir-version: '1.11.4' # Define the elixir version [required]
+        otp-version: '23.0' # Define the OTP version [required]
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Install dependencies
+      run: mix deps.get
+    - name: Run tests
+      run: mix test
+      env: 
+        hostname: zcashd
