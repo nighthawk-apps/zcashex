@@ -52,11 +52,4 @@ defmodule Zcashex.Client do
   def handle_call({:call_endpoint, method}, from, state) do
     Zcashex.Client.handle_call({:call_endpoint, method, []}, from, state)
   end
-
-  @impl true
-  def terminate(reason, state) do
-    IO.inspect("terminate/2 callback")
-    IO.inspect({:reason, reason})
-    IO.inspect({:state, state})
-  end
 end

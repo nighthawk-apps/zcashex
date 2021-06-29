@@ -48,8 +48,18 @@ defmodule Zcashex do
     end
   end)
 
-  def getblock(hash, verbosity) when is_integer(verbosity) and verbosity in 0..2 do
+  def getblock(hash, verbosity)
+      when is_binary(hash) and is_integer(verbosity) and verbosity in 0..2 do
     GenServer.call(__MODULE__, {:call_endpoint, "getblock", [hash, verbosity]}, 120_000)
+  end
+
+  def getblock(hash, verbosity)
+      when is_integer(hash) and is_integer(verbosity) and verbosity in 0..2 do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "getblock", [Integer.to_string(hash), verbosity]},
+      120_000
+    )
   end
 
   def getblocksubsidy() do
@@ -170,6 +180,17 @@ defmodule Zcashex do
            "end" => end_block
          }
        ]},
+      120_000
+    )
+  end
+
+  @doc """
+  https://zcash-rpc.github.io/decoderawtransaction.html
+  """
+  def decoderawtransaction(hexstring) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "decoderawtransaction", [hexstring]},
       120_000
     )
   end
