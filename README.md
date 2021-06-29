@@ -2,6 +2,9 @@
 
 A elixir client library to interact with the JSON-RPC endpoint provided by a [Zcash full node](https://github.com/zcash/zcash).
 
+
+[![Zcashex CI](https://github.com/nighthawk-apps/zcashex/actions/workflows/elixir.yml/badge.svg)](https://github.com/nighthawk-apps/zcashex/actions/workflows/elixir.yml)
+
 Note: this project is under active development.
 
 ## Installation
