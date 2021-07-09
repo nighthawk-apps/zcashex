@@ -196,6 +196,28 @@ defmodule Zcashex do
   end
 
   @doc """
+  https://zcash-rpc.github.io/validateaddress.html
+  """
+  def validateaddress(address) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "validateaddress", [address]},
+      120_000
+    )
+  end
+
+  @doc """
+  https://zcash-rpc.github.io/z_validateaddress.html
+  """
+  def z_validateaddress(address) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "z_validateaddress", [address]},
+      120_000
+    )
+  end
+
+  @doc """
   Note: this function can only be used on the regtest network
   https://zcash-rpc.github.io/generate.html
   """
