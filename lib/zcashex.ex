@@ -218,6 +218,17 @@ defmodule Zcashex do
   end
 
   @doc """
+  https://zcash-rpc.github.io/getblockheader.html
+  """
+  def getblockheader(hash) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "getblockheader", [hash]},
+      120_000
+    )
+  end
+
+  @doc """
   Note: this function can only be used on the regtest network
   https://zcash-rpc.github.io/generate.html
   """
