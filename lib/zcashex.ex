@@ -229,6 +229,17 @@ defmodule Zcashex do
   end
 
   @doc """
+  https://zcash-rpc.github.io/getrawmempool.html
+  """
+  def getrawmempool(verbose) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "getrawmempool", [verbose]},
+      120_000
+    )
+  end
+
+  @doc """
   Note: this function can only be used on the regtest network
   https://zcash-rpc.github.io/generate.html
   """
