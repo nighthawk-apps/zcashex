@@ -250,4 +250,14 @@ defmodule Zcashex do
       120_000
     )
   end
+
+  @doc """
+  https://zcash.github.io/rpc/z_listunifiedreceivers.html
+  """
+  def z_listunifiedreceivers(unified_address) do
+    GenServer.call(
+      __MODULE__,
+      {:call_endpoint, "z_listunifiedreceivers", [unified_address]}
+    )
+  end
 end
