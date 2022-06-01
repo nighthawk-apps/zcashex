@@ -4,6 +4,7 @@ defmodule Zcashex.Transaction do
 
   @primary_key false
   embedded_schema do
+    field(:authdigest, :string)
     field(:blockhash, :string)
     field(:blocktime, :integer)
     field(:confirmations, :integer)
@@ -19,6 +20,7 @@ defmodule Zcashex.Transaction do
     field(:valueBalanceZat, :float)
     field(:version, :integer)
     field(:versiongroupid, :string)
+    field(:bindingSig, :string)
     embeds_many(:vin, Zcashex.VInTX)
     embeds_many(:vout, Zcashex.VOutTX)
     embeds_many(:vjoinsplit, Zcashex.VJoinSplitTX)
@@ -29,8 +31,10 @@ defmodule Zcashex.Transaction do
   def changeset(struct, data) do
     struct
     |> cast(data, [
+      :authdigest,
       :blockhash,
       :blocktime,
+      :bindingSig,
       :confirmations,
       :expiryheight,
       :height,
