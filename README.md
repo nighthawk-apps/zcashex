@@ -26,7 +26,7 @@ manually:
 ```
 
 
-{ok, pid} = Zcashex.start_link("localhost", 38232, "zcashrpc", "changeme")
+{ok, pid} = Zcashex.start_link("localhost", 8232, "zcashrpc", "changeme")
 GenServer.call(pid, {:call_endpoint, "getinfo"})
 // or
 Zcashex.getinfo
